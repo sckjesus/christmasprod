@@ -77,6 +77,16 @@ def view_tasks(room_code):
 
     return jsonify({"tasks": rooms[room_code]["tasks"]})
 
+@app.route("/join_room", methods=["GET", "POST"])
+def join_room():
+    if request.method == "POST":
+        room_code = request.form.get("room_code")
+        if room_code in rooms:
+            return render_template("room.html", room_code=room_code, tasks=rooms[room_code]["tasks"])
+        else:
+            return render_template("join_room.html", error="Invalid room code. Please try again.")
+    
+    return render_template("join_room.html")
 
 # API: Update Tasks
 @app.route("/update_tasks", methods=["POST"])
