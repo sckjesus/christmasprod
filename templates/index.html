@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Manager</title>
+    <title>Room Manager App</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Welcome to the Room Manager App</h1>
-    <form id="createRoomForm" method="post">
-        <button type="button" onclick="createRoom()">Create Room</button>
-    </form>
-    <div id="response"></div>
-    <script>
-        async function createRoom() {
-            const response = await fetch('/create_room', { method: 'POST' });
-            const data = await response.json();
-            document.getElementById('response').innerText = data.message;
-        }
-    </script>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">🎭 Room Manager App</h1>
+            <p class="text-lg text-gray-600">Manage and view tasks for your rooms with ease.</p>
+        </header>
+
+        <!-- Navigation -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Welcome</h2>
+            <div class="flex justify-center space-x-4">
+                <form method="POST" action="/" class="inline-block">
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Create Room</button>
+                </form>
+                <a href="/join_room" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Join Room</a>
+            </div>
+        </section>
+    </div>
 </body>
 </html>

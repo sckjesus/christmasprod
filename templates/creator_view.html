@@ -1,0 +1,121 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator View</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">👩‍🎨 Creator View</h1>
+            <p class="text-lg text-gray-600">Manage tasks for your room.</p>
+        </header>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Room Code: <strong>{{ room_code }}</strong></h2>
+            --><!-- Add your task management components here --><!--
+        </section>
+    </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator View</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        async function addTask() {
+            const sceneNumber = document.getElementById("scene-number").value;
+            const person = document.getElementById("person").value;
+            const task = document.getElementById("task").value;
+            const roomCode = document.getElementById("room-code").innerText;
+
+            const response = await fetch(`/creator_view/${roomCode}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    action: "add_task",
+                    scene_number: sceneNumber,
+                    person: person,
+                    task: task
+                })
+            });
+            const data = await response.json();
+            alert(data.message);
+            window.location.reload(); // Reload to reflect the updated task list
+        }
+
+        async function deleteTask(sceneNumber, person, task) {
+            const roomCode = document.getElementById("room-code").innerText;
+
+            const response = await fetch(`/creator_view/${roomCode}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    action: "delete_task",
+                    scene_number: sceneNumber,
+                    person: person,
+                    task: task
+                })
+            });
+            const data = await response.json();
+            alert(data.message);
+            window.location.reload(); // Reload to reflect the updated task list
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">👩‍🎨 Creator View</h1>
+            <p class="text-lg text-gray-600">Manage tasks for your room.</p>
+        </header>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Room Code: <strong id="room-code">{{ room_code }}</strong></h2>
+
+            <!-- Add Task Form -->
+            <div class="bg-white p-6 rounded shadow-md mb-4">
+                <h3 class="text-xl font-medium mb-4">Add Task</h3>
+                <input type="text" id="scene-number" placeholder="Scene Number" class="border border-gray-300 p-2 rounded w-full mb-2">
+                <input type="text" id="person" placeholder="Person" class="border border-gray-300 p-2 rounded w-full mb-2">
+                <input type="text" id="task" placeholder="Task" class="border border-gray-300 p-2 rounded w-full mb-2">
+                <button type="button" onclick="addTask()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Add Task</button>
+            </div>
+
+            <!-- Display Existing Tasks -->
+            <h3 class="text-xl font-medium mb-4">Current Tasks</h3>
+            <div class="space-y-4">
+                {% for scene, scene_tasks in tasks.items() %}
+                    <div class="bg-white p-4 rounded shadow-md">
+                        <h4 class="text-lg font-semibold">Scene {{ scene }}</h4>
+                        {% for person, task_list in scene_tasks.items() %}
+                            <div class="mt-2">
+                                <h5 class="font-medium">Person: {{ person }}</h5>
+                                <ul>
+                                    {% for task in task_list %}
+                                        <li class="flex justify-between items-center">
+                                            <span>{{ task }}</span>
+                                            <button onclick="deleteTask('{{ scene }}', '{{ person }}', '{{ task }}')" class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+
