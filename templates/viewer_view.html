@@ -1,31 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viewer View</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        function markTaskCompleted(scene, person, roomCode) {
+            console.log(`Marking task as completed. Scene: ${scene}, Person: ${person}, Room Code: ${roomCode}`);
+
+            fetch(`/mark_task_completed/${roomCode}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ scene: scene, person: person })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    const taskBox = document.getElementById(`task-${scene}-${person}`);
+                    if (taskBox) {
+                        taskBox.classList.add('grayed-out', 'text-lime-500');
+                        taskBox.classList.remove('bg-white', 'text-gray-800');
+                        // taskBox.style.opacity = '0';
+                    }
+                } else {
+                    console.error('Error from server:', data.message);
+                }
+            })
+            .catch(error => console.error('Fetch Error:', error));
+        }
+
+
+        // Function to generate a random color
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Apply random background colors to each person's scenes
+        function applyDynamicColors() {
+            const personBoxes = document.querySelectorAll('.person-column');
+            personBoxes.forEach((box, index) => {
+                const color = getRandomColor();
+                box.style.backgroundColor = color;
+                const colorButton = document.getElementById(`color-button-${index + 1}`);
+                if (colorButton) {
+                    colorButton.style.backgroundColor = color;
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', applyDynamicColors);
+
+        // Change person's color dynamically
+        function changePersonColor(personId) {
+            const personBox = document.getElementById(personId);
+            const color = getRandomColor();
+            personBox.style.backgroundColor = color;
+            const colorButton = document.querySelector(`[data-person-id='${personId}']`);
+            if (colorButton) {
+                colorButton.style.backgroundColor = color;
+            }
+        }
+
+        // Function to handle next scene button click
+        function nextScene(roomCode) {
+            fetch(`/next_scene/${roomCode}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        function previousScene(roomCode) {
+            fetch(`/previous_scene/${roomCode}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+    <style>
+        .scene-box {
+            height: 100px;
+            /* Set a smaller fixed height for all scene boxes */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+
+        }
+        .grayed-out {
+                background-color: #e5e7eb;
+                /* Tailwind gray-200 */
+                opacity: 0.6;
+            }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <div class="container mx-auto p-4">
+
+<body class="bg-black font-sans text-white">
+    <div class="container mx-auto min-w-full p-4">
         <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-800">Viewer View</h1>
-            <p class="text-lg text-gray-600">View tasks for the room code: {{ room_code }}</p>
+            <h1 class="text-4xl font-bold">Viewer View</h1>
+            <p class="text-lg text-gray-500">View tasks for the room code: <strong>{{ room_code }}</strong></p>
+            <button onclick="nextScene('{{ room_code }}')" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Next
+                Scene</button>
+            <button onclick="previousScene('{{ room_code }}')"
+                class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Previous Scene</button>
         </header>
 
         <section>
-            <h2 class="text-2xl font-semibold mb-4">Tasks Overview</h2>
-            <div id="tasks-output" class="bg-white p-6 rounded shadow-md">
-                {% for scene, people in tasks.items() %}
-                <div class="mb-4">
-                    <h3 class="text-lg font-semibold">Scene {{ scene }}</h3>
-                    {% for person, task_list in people.items() %}
-                    <p><strong>{{ person }}:</strong> {{ ', '.join(task_list) }}</p>
+            <h2 class="text-2xl font-semibold mb-6">Tasks Overview</h2>
+
+            {% if tasks %}
+            <div class="overflow-x-auto">
+                <div class="min-w-full bg-gray-800 shadow-md rounded p-4">
+                    <!-- Create the list of person names -->
+                    {% set people_names = [] %}
+                    {% for scene, people in tasks.items() %}
+                    {% for person in people.keys() %}
+                    {% if person not in people_names %}
+                    {% set _ = people_names.append(person) %}
+                    {% endif %}
                     {% endfor %}
+                    {% endfor %}
+
+                    <!-- Create the grid layout with scenes aligned across all people -->
+                    <div class="grid grid-cols-{{ people_names | length }} gap-4 mb-4">
+                        <!-- Names as Headers with Color Picker -->
+                        {% for person in people_names %}
+                        <div
+                            class="text-center text-lg font-bold text-white border-b-2 pb-2 flex items-center justify-center">
+                            <span>{{ person }}</span>
+                            <button id="color-button-{{ loop.index }}" data-person-id="person-{{ loop.index }}"
+                                onclick="changePersonColor('person-{{ loop.index }}')"
+                                class="ml-2 w-6 h-6 rounded-full border-2 border-gray-300"></button>
+                        </div>
+                        {% endfor %}
+
+                        <!-- Align Tasks under Person Names for Each Scene -->
+                        {% for person in people_names %}
+                            <div id="person-{{ loop.index }}" class="min-w-[200px] person-column rounded p-4 shadow-sm">
+                                {% for scene in scene_order %}
+                                    {% if scene_order.index(scene) >= scene_order.index(rooms[room_code].get('scene_selected', scene_order[0])) %}
+                                        {% set is_current_scene = scene == rooms[room_code].get('scene_selected', scene_order[0]) %}
+                                        {% set is_completed = {'scene': scene, 'person': person} in rooms[room_code].get('completed_tasks', []) %}
+
+                                        <div id="task-{{ scene }}-{{ person }}" class="text-gray-800 mb-4 p-1 {{ 'bg-white' if is_current_scene else 'grayed-out' }} rounded scene-box"
+                                            style="{{ 'background-color: rgb(148 163 184); opacity:0.7' if not is_current_scene }}" onclick="markTaskCompleted('{{ scene }}', '{{ person }}', '{{ room_code }}')">
+                                            <h4 class="text-md font-semibold text-center">{{ scene }}</h4>
+                                            {% if scene in tasks and person in tasks[scene] %}
+                                                <ul class="list-none mt-2">
+                                                    {% for task in tasks[scene][person] %}
+                                                        <li class="text-center">{{ task }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% else %}
+                                                <p class="text-gray-500 text-center">Nothing to do</p>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                    </div>
                 </div>
-                {% endfor %}
             </div>
+            {% else %}
+            <p class="text-center text-gray-600">No scenes or tasks are currently available for this room.</p>
+            {% endif %}
         </section>
     </div>
 </body>
+
 </html>
