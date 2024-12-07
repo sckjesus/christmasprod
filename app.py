@@ -12,12 +12,108 @@ rooms = {}
 
 # Predefined template for tasks
 tasks_template = {
-    "Sam": [("1 - Strike", "Table"), ("2 - Set Up", "Table")],
-    "Mila": [("1 - Strike", "Table")],
-    "Danny": [("1 - Set Up", "Table")],
-    "Allison": [("1 - Set Up", "Wall")],
-    "Messi": [("1 - Set Up", "Plants")],
+    "Selected crowd members": [
+        ("Pre Play", "Hand out candles")
+    ],
+    "Allison": [
+        ("Pre Play", "Verify props are ready and in place"),
+        ("Pre Play", "Verify Stage is clean and in ready order"),
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Release the Kubuki Drop"),
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Mailboxes"),
+        ("4 - Lobby Scene Standard", "Confirm Dry Ice Machines are ready"),
+        ("5 - Song 'All Is Well'", "Verify football, bandana, and VR headsets are present and accessible"),
+        ("6 - College Guy Apartment Standard", "Prep spinning platform to come on during next song"),
+        ("12 - Lobby Scene Standard", "Prep spinner platform with lowest stair facing forward and lock the rotation pegs"),
+        ("12 - Lobby Scene Standard", "Open middle slide wall"),
+        ("13 - Song 'Yuletide'", "Double Check Prop Arrangement on Desk"),
+        ("16 - Song 'Midwinter'", "Moving Boxes"),
+        ("Post Play", "Charge radios for the next show")
+    ],
+    "Per adult on special effects": [
+        ("Pre Play", "Verify Special effects machines and mechanisms are prepared")
+    ],
+    "Sarah": [
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Pull Kubuki Drop off the stage smoothly after the drop"),
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Cushion on Floor"),
+        ("2 - Lobby Scene Standard + Move Into Apartment Props", "Hold wall while Kyle crashes through it"),
+        ("5 - Song 'All Is Well'", "Dry ice"),
+        ("5 - Song 'All Is Well'", "Slide college guy wall into place when set is ready"),
+        ("6 - College Guy Apartment Standard", "Prep spinning platform to come on during next song"),
+        ("6 - College Guy Apartment Standard", "Push out the spinning platform"),
+        ("12 - Lobby Scene Standard", "Prep extra steps for behind it"),
+        ("12 - Lobby Scene Standard", "Quickly clear scene to sides"),
+        ("13 - Song 'Yuletide'", "Vintage Chair"),
+        ("16 - Song 'Midwinter'", "Blanket & Toys")
+    ],
+    "Maddie": [
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Pull Kubuki Drop off the stage smoothly after the drop"),
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Crib Pieces"),
+        ("6 - College Guy Apartment Standard", "Open the middle wall"),
+        ("12 - Lobby Scene Standard", "Quickly clear scene to sides"),
+        ("13 - Song 'Yuletide'", "Desk"),
+        ("13 - Song 'Yuletide'", "Shut middle with Lobby Door"),
+    ],
+    "Samuel": [
+        ("1 - Song 'It Came Upon A Midnight Clear'", "The Two Plants"),
+        ("2 - Lobby Scene Standard + Move Into Apartment Props", "Repair the wall"),
+        ("5 - Song 'All Is Well'", "Recliner #2"),
+        ("6 - College Guy Apartment Standard", "Push out the spinning platform"),
+        ("7 - Song 'He Is Born'", "Pull back the spinning platform"),
+        ("7 - Song 'He Is Born'", "Keep cables clear of wheels"),
+        ("12 - Lobby Scene Standard", "Push out the spinner platform"),
+        ("12 - Lobby Scene Standard", "Stairs behind spinner"),
+        ("13 - Song 'Yuletide'", "Pull back the platform"),
+        ("16 - Song 'Midwinter'", "Moving Boxes")
+    ],
+    "Adrianna": [
+        ("1 - Song 'It Came Upon A Midnight Clear'", "The Two Plants"),
+        ("6 - College Guy Apartment Standard", "Curtain Holders on sides"),
+        ("9 - Song 'Christmas Hits Different'", "Left Side Table"),
+        ("13 - Song 'Yuletide'", "Desk"),
+        ("16 - Song 'Midwinter'", "Left Side Table")
+    ],
+    "Mila": [
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Table"),
+        ("6 - College Guy Apartment Standard", "Curtain Holders on sides"),
+        ("9 - Song 'Christmas Hits Different'", "Right Side Table"),
+        ("13 - Song 'Yuletide'", "Waste Basket"),
+        ("16 - Song 'Midwinter'", "Right Side Table")
+    ],
+    "Rebecca": [
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Sofa"),
+        ("2 - Lobby Scene Standard + Move Into Apartment Props", "Unlatch breakaway hole in the wall"),
+        ("6 - College Guy Apartment Standard", "Open the middle wall"),
+        ("13 - Song 'Yuletide'", "Paper Box")
+    ],
+    "Grace": [
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Chair"),
+        ("5 - Song 'All Is Well'", "Slide college guy wall into place when set is ready"),
+        ("7 - Song 'He Is Born'", "Prepare to spin"),
+        ("7 - Song 'He Is Born'", "Begin the slow spin"),
+        ("7 - Song 'He Is Born'", "Pull back the spinning platform"),
+        ("12 - Lobby Scene Standard", "Push out the spinner platform"),
+        ("12 - Lobby Scene Standard", "Stairs behind spinner"),
+        ("16 - Song 'Midwinter'", "Sofa")
+    ],
+    "Jacelynn": [
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Table"),
+        ("2 - Lobby Scene Standard + Move Into Apartment Props", "Hold wall while Kyle crashes through it"),
+        ("6 - College Guy Apartment Standard", "Quickly clear of the scene"),
+        ("9 - Song 'Christmas Hits Different'", "Diaper Boxes"),
+        ("12 - Lobby Scene Standard", "Quickly clear scene to sides")
+    ],
+    "Daniel": [
+        ("1 - Song 'It Came Upon A Midnight Clear'", "Sofa"),
+        ("5 - Song 'All Is Well'", "Clothes Pile"),
+        ("6 - College Guy Apartment Standard", "Quickly clear of the scene"),
+        ("12 - Lobby Scene Standard", "Open middle slide wall"),
+        ("13 - Song 'Yuletide'", "Desk Chair"),
+        ("16 - Song 'Midwinter'", "High Chair")
+    ]
 }
+
+
+
 
 def initialize_room(room_code):
     if room_code not in rooms:
@@ -31,7 +127,8 @@ def add_template_tasks_to_room(room_code):
     initialize_room(room_code)  # Ensure room is initialized
 
     for person, task_list in tasks_template.items():
-        for scene, task in task_list:
+        for task_data in task_list:
+            scene, task = task_data  # Unpack the tuple containing scene and task
             # Add scene to scene_order if it's not already there
             if scene not in rooms[room_code]["scene_order"]:
                 rooms[room_code]["scene_order"].append(scene)
@@ -48,7 +145,6 @@ def add_template_tasks_to_room(room_code):
             rooms[room_code]["tasks"][scene][person].append(task)
     if not rooms[room_code]["scene_selected"] and rooms[room_code]["scene_order"]:
         rooms[room_code]["scene_selected"] = rooms[room_code]["scene_order"][0]
-
 
     return jsonify({"message": "Template tasks added successfully!", "rooms": rooms})
 
@@ -134,9 +230,19 @@ def creator_view(room_code):
 def viewer_view(room_code):
     if room_code in rooms:
         room_data = rooms[room_code]
-        return render_template("viewer_view.html", room_code=room_code, tasks=room_data["tasks"], scene_order=room_data["scene_order"], scene_selected=room_data["scene_selected"], rooms=rooms)
+        completed_tasks = room_data.get("completed_tasks", [])
+        return render_template(
+            "viewer_view.html",
+            room_code=room_code,
+            tasks=room_data["tasks"],
+            scene_order=room_data["scene_order"],
+            scene_selected=room_data["scene_selected"],
+            completed_tasks=completed_tasks,
+            rooms=rooms
+        )
     else:
         return "Invalid room code.", 404
+
 @app.route("/update_tasks", methods=["POST"])
 def update_tasks():
     data = request.json
@@ -315,6 +421,51 @@ def mark_task_completed(room_code):
     except Exception as e:
         logging.error(f"Error in mark_task_completed: {e}")
         return jsonify({"success": False, "message": "An error occurred while marking the task as completed."})
+@app.route("/unmark_task_completed/<room_code>", methods=["POST"])
+def unmark_task_completed(room_code):
+    try:
+        if room_code not in rooms:
+            logging.error(f"Room code '{room_code}' not found. Available rooms: {list(rooms.keys())}")
+            return jsonify({"success": False, "message": "Invalid room code."}), 404
+
+        data = request.get_json()
+        if not data:
+            logging.error("No data received in request.")
+            return jsonify({"success": False, "message": "No data received."})
+
+        scene = data.get("scene")
+        person = data.get("person")
+
+        # Check if required fields are present
+        if not scene or not person:
+            logging.error(f"Missing scene or person in request data. Scene: {scene}, Person: {person}")
+            return jsonify({"success": False, "message": "Missing scene or person in request data."})
+
+        # Logging to verify data received
+        logging.debug(f"Received request to unmark task as completed in room '{room_code}' for scene '{scene}' and person '{person}'")
+
+        room = rooms[room_code]
+
+        # Ensure completed_tasks is initialized
+        if "completed_tasks" not in room:
+            logging.debug("No completed tasks to unmark.")
+            return jsonify({"success": False, "message": "No completed tasks to unmark."})
+
+        completed_tasks = room["completed_tasks"]
+
+        # Check if the task is in completed_tasks and remove it
+        task_to_remove = {"scene": scene, "person": person}
+        if task_to_remove in completed_tasks:
+            completed_tasks.remove(task_to_remove)
+            logging.debug(f"Task for scene '{scene}' and person '{person}' unmarked as completed.")
+            return jsonify({"success": True, "message": "Task unmarked as completed!", "rooms": rooms})
+        
+        logging.debug(f"Task for scene '{scene}' and person '{person}' was not marked as completed.")
+        return jsonify({"success": False, "message": "Task was not marked as completed.", "rooms": rooms})
+
+    except Exception as e:
+        logging.error(f"Error in unmark_task_completed: {e}")
+        return jsonify({"success": False, "message": "An error occurred while unmarking the task as completed."})
 
     
 if __name__ == "__main__":
