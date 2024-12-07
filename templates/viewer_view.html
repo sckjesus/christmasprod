@@ -355,7 +355,7 @@ function applyCompletedTasks() {
                         {% endfor %}
 
                         {% for person in people_names[half_length:] %}
-                        <div id="person-{{ loop.index + half_length }}" class="min-w-[200px] person-column rounded p-4 shadow-sm">
+                        <div id="person-{{ loop.index + half_length }}" class="min-w-[200px] person-column rounded p-2 shadow-sm">
                             {% for scene in scene_order %}
                             {% if scene_order.index(scene) >= scene_order.index(rooms[room_code].get('scene_selected', scene_order[0])) %}
                             {% set is_current_scene = scene == rooms[room_code].get('scene_selected', scene_order[0]) %}
