@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import uuid
 import logging
+import re
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -366,11 +367,20 @@ def previous_scene(room_code):
         return jsonify({"success": True, "scene_selected": rooms[room_code]["scene_selected"]})
     return jsonify({"success": False, "message": "Invalid room code."})
 
+def sanitize_name(name):
+    return re.sub(r'[^a-zA-Z0-9]', '_', name)
+def resolve_original_name(sanitized_name, original_dict):
+    """Find the original name from a dictionary key or subkey that matches the sanitized name."""
+    for original_name in original_dict:
+        if sanitize_name(original_name) == sanitized_name:
+            return original_name
+    return None
+
 @app.route("/mark_task_completed/<room_code>", methods=["POST"])
 def mark_task_completed(room_code):
     try:
         if room_code not in rooms:
-            logging.error(f"Room code '{room_code}' not found. Available rooms: {list(rooms.keys())}")
+            logging.error(f"Room code '{room_code}' not found.")
             return jsonify({"success": False, "message": "Invalid room code."}), 404
 
         data = request.get_json()
@@ -378,49 +388,50 @@ def mark_task_completed(room_code):
             logging.error("No data received in request.")
             return jsonify({"success": False, "message": "No data received."})
 
-        scene = data.get("scene")
-        person = data.get("person")
+        # Extract and sanitize data
+        raw_scene = data.get("scene")
+        raw_person = data.get("person")
+        
 
-        # Check if required fields are present
-        if not scene or not person:
-            logging.error(f"Missing scene or person in request data. Scene: {scene}, Person: {person}")
+        if not raw_scene or not raw_person:
+            logging.error(f"Missing scene or person in request data. Scene: {raw_scene}, Person: {raw_person}")
             return jsonify({"success": False, "message": "Missing scene or person in request data."})
 
-        # Logging to verify data received
-        logging.debug(f"Received request to mark task as completed in room '{room_code}' for scene '{scene}' and person '{person}'")
+        sanitized_scene = sanitize_name(raw_scene)
+        sanitized_person = sanitize_name(raw_person)
+        logging.debug(f"Received sanitized inputs - Scene: {sanitized_scene}, Person: {sanitized_person}")
 
+        # Resolve original names from the dictionary
         room = rooms[room_code]
+        tasks = room.get("tasks", {})
+        actual_scene = resolve_original_name(sanitized_scene, tasks)
+        if actual_scene is None:
+            logging.error(f"Scene not found: {sanitized_scene}")
+            return jsonify({"success": False, "message": "Scene not found in tasks."})
 
-        # Ensure completed_tasks is initialized
+        actual_person = resolve_original_name(sanitized_person, tasks.get(actual_scene, {}))
+        if actual_person is None:
+            logging.error(f"Person not found: {sanitized_person}")
+            return jsonify({"success": False, "message": "Person not found in tasks."})
+
+        logging.debug(f"Resolved actual names - Scene: {actual_scene}, Person: {actual_person}")
+
+        # Mark the task as completed
+        completed_task = {"scene": actual_scene, "person": actual_person}
         if "completed_tasks" not in room:
             room["completed_tasks"] = []
 
-        tasks = room.get("tasks", {})
+        if completed_task not in room["completed_tasks"]:
+            room["completed_tasks"].append(completed_task)
+            logging.debug(f"Task marked as completed: {completed_task}")
+            return jsonify({"success": True, "message": "Task marked as completed!", "rooms": rooms})
 
-        # Check if scene exists in tasks
-        if scene in tasks:
-            scene_tasks = tasks[scene]
-
-            # Check if person exists in the scene
-            if person in scene_tasks:
-                # Avoid marking the same task as completed multiple times
-                if {"scene": scene, "person": person} not in room["completed_tasks"]:
-                    room["completed_tasks"].append({"scene": scene, "person": person})
-                    logging.debug(f"Task for scene '{scene}' and person '{person}' marked as completed.")
-                    return jsonify({"success": True, "message": "Task marked as completed!", "rooms": rooms})
-
-                logging.debug(f"Task for scene '{scene}' and person '{person}' is already marked as completed.")
-                return jsonify({"success": True, "message": "Task already marked as completed.", "rooms": rooms})
-            else:
-                logging.error(f"Person '{person}' not found in scene '{scene}'. Available persons: {list(scene_tasks.keys())}")
-                return jsonify({"success": False, "message": "Person not found in this scene."})
-        else:
-            logging.error(f"Scene '{scene}' not found in tasks. Available scenes: {list(tasks.keys())}")
-            return jsonify({"success": False, "message": "Scene not found."})
-
+        logging.debug(f"Task already marked as completed: {completed_task}")
+        return jsonify({"success": True, "message": "Task already marked as completed.", "rooms": rooms})
     except Exception as e:
         logging.error(f"Error in mark_task_completed: {e}")
-        return jsonify({"success": False, "message": "An error occurred while marking the task as completed."})
+        return jsonify({"success": False, "message": "An error occurred."})
+
 @app.route("/unmark_task_completed/<room_code>", methods=["POST"])
 def unmark_task_completed(room_code):
     try:
@@ -433,18 +444,32 @@ def unmark_task_completed(room_code):
             logging.error("No data received in request.")
             return jsonify({"success": False, "message": "No data received."})
 
-        scene = data.get("scene")
-        person = data.get("person")
+        # Extract and sanitize data
+        raw_scene = data.get("scene")
+        raw_person = data.get("person")
 
-        # Check if required fields are present
-        if not scene or not person:
-            logging.error(f"Missing scene or person in request data. Scene: {scene}, Person: {person}")
+        if not raw_scene or not raw_person:
+            logging.error(f"Missing scene or person in request data. Scene: {raw_scene}, Person: {raw_person}")
             return jsonify({"success": False, "message": "Missing scene or person in request data."})
 
-        # Logging to verify data received
-        logging.debug(f"Received request to unmark task as completed in room '{room_code}' for scene '{scene}' and person '{person}'")
+        sanitized_scene = sanitize_name(raw_scene)
+        sanitized_person = sanitize_name(raw_person)
+        logging.debug(f"Received sanitized inputs - Scene: {sanitized_scene}, Person: {sanitized_person}")
 
+        # Resolve original names from the dictionary
         room = rooms[room_code]
+        tasks = room.get("tasks", {})
+        actual_scene = resolve_original_name(sanitized_scene, tasks)
+        if actual_scene is None:
+            logging.error(f"Scene not found: {sanitized_scene}")
+            return jsonify({"success": False, "message": "Scene not found in tasks."})
+
+        actual_person = resolve_original_name(sanitized_person, tasks.get(actual_scene, {}))
+        if actual_person is None:
+            logging.error(f"Person not found: {sanitized_person}")
+            return jsonify({"success": False, "message": "Person not found in tasks."})
+
+        logging.debug(f"Resolved actual names - Scene: {actual_scene}, Person: {actual_person}")
 
         # Ensure completed_tasks is initialized
         if "completed_tasks" not in room:
@@ -454,13 +479,13 @@ def unmark_task_completed(room_code):
         completed_tasks = room["completed_tasks"]
 
         # Check if the task is in completed_tasks and remove it
-        task_to_remove = {"scene": scene, "person": person}
+        task_to_remove = {"scene": actual_scene, "person": actual_person}
         if task_to_remove in completed_tasks:
             completed_tasks.remove(task_to_remove)
-            logging.debug(f"Task for scene '{scene}' and person '{person}' unmarked as completed.")
+            logging.debug(f"Task for scene '{actual_scene}' and person '{actual_person}' unmarked as completed.")
             return jsonify({"success": True, "message": "Task unmarked as completed!", "rooms": rooms})
         
-        logging.debug(f"Task for scene '{scene}' and person '{person}' was not marked as completed.")
+        logging.debug(f"Task for scene '{actual_scene}' and person '{actual_person}' was not marked as completed.")
         return jsonify({"success": False, "message": "Task was not marked as completed.", "rooms": rooms})
 
     except Exception as e:
