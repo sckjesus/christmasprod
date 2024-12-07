@@ -266,8 +266,8 @@ function applyCompletedTasks() {
     <div class="container mx-auto min-w-full p-4 h-screen">
         <header class="flex justify-between items-center mb-8">
             <div>
-                <h1 class="text-4xl font-bold">Viewer View</h1>
-                <p class="text-lg text-gray-500">View tasks for the room code: <strong>{{ room_code }}</strong></p>
+                <h1 class="text-3xl font-bold">Viewer View</h1>
+                <p class="text-md text-gray-500">View tasks for the room code: <strong>{{ room_code }}</strong></p>
             </div>
             <div class="flex gap-4">
                 <button onclick="previousScene('{{ room_code }}')" class="px-4 py-2 bg-blue-500 text-white rounded flex items-center space-x-2">
@@ -304,7 +304,7 @@ function applyCompletedTasks() {
                     <div class="grid grid-cols-{{ half_length }} gap-4 mb-4 h-2/5 overflow-y-auto" >
                         <!-- First Row of Names and Tasks -->
                         {% for person in people_names[:half_length] %}
-                        <div class="text-center text-lg font-bold text-white border-b-2 pb-2 flex items-center justify-center">
+                        <div class="text-center text-sm font-bold text-white border-b-2 pb-2 flex items-center justify-center">
                             <span>{{ person }}</span>
                             <button id="color-button-{{ loop.index }}" data-person-id="person-{{ loop.index }}"
                                 onclick="changePersonColor('person-{{ loop.index }}')"
@@ -346,7 +346,7 @@ function applyCompletedTasks() {
                     <div class="grid grid-cols-{{ half_length }} gap-4 mb-4 mt-8 h-2/5 overflow-y-auto">
                         <!-- Second Row of Names and Tasks -->
                         {% for person in people_names[half_length:] %}
-                        <div class="text-center text-lg font-bold text-white border-b-2 pb-2 flex items-center justify-center">
+                        <div class="text-center text-sm font-bold text-white border-b-2 pb-2 flex items-center justify-center">
                             <span>{{ person }}</span>
                             <button id="color-button-{{ loop.index + half_length }}" data-person-id="person-{{ loop.index + half_length }}"
                                 onclick="changePersonColor('person-{{ loop.index + half_length }}')"
@@ -376,7 +376,7 @@ function applyCompletedTasks() {
                                     {% endfor %}
                                 </ul>
                                 {% else %}
-                                <p class="text-gray-500 text-center">Nothing to do</p>
+                                <p class="text-gray-500 text-cente text-xs">Nothing to do</p>
                                 {% endif %}
                             </div>
                             {% endif %}
