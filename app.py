@@ -13,105 +13,203 @@ rooms = {}
 
 # Predefined template for tasks
 tasks_template = {
-    "Selected crowd members": [
-        ("Pre Play", "Hand out candles")
-    ],
+
     "Allison": [
-        ("Pre Play", "Verify props are ready and in place"),
-        ("Pre Play", "Verify Stage is clean and in ready order"),
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Release the Kubuki Drop"),
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Mailboxes"),
-        ("4 - Lobby Scene Standard", "Confirm Dry Ice Machines are ready"),
-        ("5 - Song 'All Is Well'", "Verify football, bandana, and VR headsets are present and accessible"),
-        ("6 - College Guy Apartment Standard", "Prep spinning platform to come on during next song"),
-        ("12 - Lobby Scene Standard", "Prep spinner platform with lowest stair facing forward and lock the rotation pegs"),
-        ("12 - Lobby Scene Standard", "Open middle slide wall"),
-        ("13 - Song 'Yuletide'", "Double Check Prop Arrangement on Desk"),
-        ("16 - Song 'Midwinter'", "Moving Boxes"),
-        ("Post Play", "Charge radios for the next show")
-    ],
-    "Per adult on special effects": [
-        ("Pre Play", "Verify Special effects machines and mechanisms are prepared")
+        ("Pre Play", "Props ready, in place"),
+        ("Pre Play", "Stage ready, clean"),
+        ("1 - 'Midnight Clear'", "Release Kubuki	"),
+        ("1 - END of 'Midnight Clear'", "Mailboxes"),
+        ("2 - AFTER Lobby + Moving", "Clear sofa"),
+("3 - 'Behold Him'", "Nothing to do"),
+
+        ("4 - Lobby", "Dry Ice Machines ready"),
+        ("4 - AFTER Lobby", "Clear Mailboxes"),
+
+        ("5 - 'All Is Well'", "Verify football, bandana, and VR headsets are present and accessible"),
+        ("5 - END of 'All Is Well'", "Verify football, bandana, and VR headsets are present and accessible"),
+        ("6 - College Apartment", "Prep spinning platform to come on during next song"),
+        ("6 - AFTER College Apartment", "Prep spinning platform to come on during next song"),
+        ("7 - 'He Is Born'", "Prepare to spin"),
+        ("7 - AFTER 'He Is Born'", "Prepare to spin"),
+        ("8 - Lobby", "Prepare to spin"),
+("8 - AFTER Lobby", "Prepare to spin"),
+        ("9 - END 'Hits Different'", "Left Side Table"),
+        ("9 - AFTER 'Hits Different'", "Left Side Table"),
+        ("10 - AFTER Young Couples", "Left Side Table"),
+        ("11 - END 'Wait Is Over'", "Left Side Table"),
+
+        ("12 - Lobby", "Prep spinner platform with lowest stair facing forward and lock the rotation pegs"),
+        ("12 - Lobby", "Open middle slide wall"),
+        ("12 - AFTER Lobby", "Prep spinner platform with lowest stair facing forward and lock the rotation pegs"),
+        ("13 - 'Yuletide'", "Double Check Prop Arrangement on Desk"),
+        ("13 - AFTER 'Yuletide'", "Double Check Prop Arrangement on Desk"),
+        ("14 - AFTER George’s Apartment", "Double Check Prop Arrangement on Desk"),
+        ("15 - 'Heard the Bells'", "Double Check Prop Arrangement on Desk"),
+        ("Message", "Double Check Prop Arrangement on Desk"),
+
+        ("16 - 'Midwinter'", "Moving Boxes"),
+        ("16 - END of 'Midwinter'", "Moving Boxes"),
+        ("17 - Young Couples", "Moving Boxes"),
+
+        ("Post Play", "Charge radios for the next show"),
+        ("AFTER Post Play", "Charge radios for the next show")
     ],
     "Sarah": [
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Pull Kubuki Drop off the stage smoothly after the drop"),
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Cushion on Floor"),
-        ("2 - Lobby Scene Standard + Move Into Apartment Props", "Hold wall while Kyle crashes through it"),
-        ("5 - Song 'All Is Well'", "Dry ice"),
-        ("5 - Song 'All Is Well'", "Slide college guy wall into place when set is ready"),
-        ("6 - College Guy Apartment Standard", "Prep spinning platform to come on during next song"),
-        ("6 - College Guy Apartment Standard", "Push out the spinning platform"),
-        ("12 - Lobby Scene Standard", "Prep extra steps for behind it"),
-        ("12 - Lobby Scene Standard", "Quickly clear scene to sides"),
-        ("13 - Song 'Yuletide'", "Vintage Chair"),
-        ("16 - Song 'Midwinter'", "Blanket & Toys")
-    ],
-    "Maddie": [
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Pull Kubuki Drop off the stage smoothly after the drop"),
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Crib Pieces"),
-        ("6 - College Guy Apartment Standard", "Open the middle wall"),
-        ("12 - Lobby Scene Standard", "Quickly clear scene to sides"),
-        ("13 - Song 'Yuletide'", "Desk"),
-        ("13 - Song 'Yuletide'", "Shut middle with Lobby Door"),
+        ("1 - 'Midnight Clear'", "Pull Kubuki"),
+        ("1 - END of 'Midnight Clear'", "Cushion on floor"),
+("9 - END 'Hits Different'", "Toys, and diaper box"),
+        ("10 - AFTER Young Couples", "Penelope"),
+        ("10 - AFTER Young Couples", "Toys and diaper box"),
+        ("13 - 'Yuletide'", "Vintage chair"),
+        ("14 - AFTER George’s Apartment", "Clear vintage chair"),
+        ("15 - AFTER 'Heard the Bells'", "Prepare smoke"),
+        ("15 - AFTER 'Heard the Bells'", "Prepare snow"),
+        ("16 - END 'Midwinter'", "Snow"),
+        ("17 - Young Couples", "Smoke machine"),
+        ("Post Play", "Come for thanks"),
+        ("AFTER Post Play", "Reset props")
     ],
     "Samuel": [
-        ("1 - Song 'It Came Upon A Midnight Clear'", "The Two Plants"),
-        ("2 - Lobby Scene Standard + Move Into Apartment Props", "Repair the wall"),
-        ("5 - Song 'All Is Well'", "Recliner #2"),
-        ("6 - College Guy Apartment Standard", "Push out the spinning platform"),
-        ("7 - Song 'He Is Born'", "Pull back the spinning platform"),
-        ("7 - Song 'He Is Born'", "Keep cables clear of wheels"),
-        ("12 - Lobby Scene Standard", "Push out the spinner platform"),
-        ("12 - Lobby Scene Standard", "Stairs behind spinner"),
-        ("13 - Song 'Yuletide'", "Pull back the platform"),
-        ("16 - Song 'Midwinter'", "Moving Boxes")
+        ("1 - 'Midnight Clear'", "Move Recliner 2"),
+        ("1 - END 'Midnight Clear'", "Chair"),
+        ("2 - AFTER Lobby + Moving", "Repair wall"),
+        ("4 - AFTER Lobby", "Clear Plants"),
+        ("5 - END 'All Is Well'", "Recliner 2"),
+        ("6 - College Apartment", "Prep spinner platform"),
+        ("6 - AFTER College Apartment", "Push spinner platform"),
+        ("7 - END 'He Is Born'", "Clear spinner platform"),
+        ("7 - AFTER 'He Is Born'", "Plants"),
+        ("8 - AFTER Lobby", "Clear plants"),
+        ("9 - END 'Hits Different'", "Moving boxes"),
+        ("9 - END 'Hits Different'", " Young couples wall"),
+        ("10 - AFTER Young Couples", "Clear Moving Boxes"),
+        ("11 - END 'Wait Is Over'", "Plants"),
+        ("12 - AFTER Lobby", "Push spinner platform"),
+        ("12 - AFTER Lobby", "Push spinner stairs"),
+        ("13 - AFTER 'Yuletide'", "Clear spinner stairs"),
+        ("13 - AFTER 'Yuletide'", "Georges Wall"),
+        ("16 - END 'Midwinter'", "Moving Boxes"),
+        ("Post Play", "Come for thanks"),
+        ("AFTER Post Play", "Reset props")
     ],
-    "Adrianna": [
-        ("1 - Song 'It Came Upon A Midnight Clear'", "The Two Plants"),
-        ("6 - College Guy Apartment Standard", "Curtain Holders on sides"),
-        ("9 - Song 'Christmas Hits Different'", "Left Side Table"),
-        ("13 - Song 'Yuletide'", "Desk"),
-        ("16 - Song 'Midwinter'", "Left Side Table")
+    "Adriana": [
+        ("1 - END 'Midnight Clear'", "Plants"),
+        ("4 - AFTER Lobby", "Clear Plants"),
+        ("5 - END 'All Is Well'", "Both side tables"),
+        ("6 - AFTER College Apartment", "Clear both side tables"),
+        ("7 - AFTER 'He Is Born'", "Plants"),
+        ("8 - AFTER Lobby", "Plants"),
+        ("9 - 'Hits Different'", "Side tables"),
+        ("10 - AFTER Young Couples", "Clear side tables"),
+        ("11 - END 'Wait Is Over'", "Plants"),
+        ("12 - AFTER Lobby", "Clear plants"),
+        ("13 - 'Yuletide'", "Lights with Daniel"),
+        ("13 - END 'Yuletide'", "Lights with Daniel"),
+        ("14 - AFTER George’s Apartment", "Clear desk"),
+        ("16 - 'Midwinter'", "Side tables")
     ],
     "Mila": [
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Table"),
-        ("6 - College Guy Apartment Standard", "Curtain Holders on sides"),
-        ("9 - Song 'Christmas Hits Different'", "Right Side Table"),
-        ("13 - Song 'Yuletide'", "Waste Basket"),
-        ("16 - Song 'Midwinter'", "Right Side Table")
+        ("1 - END 'Midnight Clear'", "Crib Peices"),
+        ("2 - AFTER Lobby + Moving", "Repair wall"),
+        ("4 - AFTER Lobby", "Clear whatever"),
+        ("5 - END 'All Is Well'", "Rolling chair"),
+        ("6 - AFTER College Apartment", "Rolling chair and headsets"),
+        ("7 - AFTER 'He Is Born'", "Plants"),
+        ("8 - AFTER Lobby", "Plants"),
+        ("9 - END 'Christmas Hits Different'", "Boxes"),
+        ("10 - AFTER Young Couples", "Boxes"),
+        ("11 - END 'Wait Is Over'", "Plants"),
+        ("12 - AFTER Lobby", "Plants"),
+        ("13 - AFTER 'Yuletide'", "Desk chair"),
+        ("16 - END 'Midwinter'", "Boxes"),
+        ("Post Play", "Come for thanks"),
+        ("AFTER Post Play", "Reset props")
     ],
     "Rebecca": [
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Sofa"),
-        ("2 - Lobby Scene Standard + Move Into Apartment Props", "Unlatch breakaway hole in the wall"),
-        ("6 - College Guy Apartment Standard", "Open the middle wall"),
-        ("13 - Song 'Yuletide'", "Paper Box")
+        ("1 - END 'Midnight Clear'", "Sofa"),
+        ("2 - Lobby + Moving", "Unlatch crash wall"),
+        ("2 - Lobby + Moving", "Hold crash wall"),
+        ("4 - AFTER Lobby", "Clear chair"),
+        ("7 - AFTER 'He Is Born'", "Chair"),
+        ("8 - AFTER Lobby", "Clear chair"),
+        ("9 - END 'Hits Different'", "Sofa"),
+        ("10 - AFTER Young Couples", "Clear sofa"),
+        ("11 - END 'Wait Is Over'", "Chair"),
+        ("12 - AFTER Lobby", "Clear chair"),
+        ("13 - AFTER 'Yuletide'", "Desk"),
+        ("16 - END 'Midwinter'", "Sofa"),
+        ("Post Play", "Come for thanks"),
+        ("AFTER Post Play", "Reset props")
     ],
-    "Grace": [
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Chair"),
-        ("5 - Song 'All Is Well'", "Slide college guy wall into place when set is ready"),
-        ("7 - Song 'He Is Born'", "Prepare to spin"),
-        ("7 - Song 'He Is Born'", "Begin the slow spin"),
-        ("7 - Song 'He Is Born'", "Pull back the spinning platform"),
-        ("12 - Lobby Scene Standard", "Push out the spinner platform"),
-        ("12 - Lobby Scene Standard", "Stairs behind spinner"),
-        ("16 - Song 'Midwinter'", "Sofa")
+    "GraceK": [
+        ("1 - END 'Midnight Clear'", "Crib peices vertical"),
+        ("2 - AFTER Lobby + Moving", "Clear crib peices"),
+        ("4 - AFTER Lobby", "Clear Chair"),
+        ("6 - AFTER College Apartment", "Clear laundry"),
+        ("9 - END 'Hits Different'", "Baby box"),
+        ("10 - AFTER Young Couples", "Clear baby box"),
+        ("13 - 'Yuletide'", "Lights"),
+        ("13 - After 'Yuletide'", "Clear lights"),
+        ("14 - AFTER George’s Apartment", "Clear desk"),
+    ],
+    "GraceB": [
+        ("1 - END 'Midnight Clear'", "Curtain"),
+        ("2 - AFTER Lobby + Moving", "Curtain"),
+        ("4 - AFTER Lobby", "Curtain"),
+
+        ("5 - 'All Is Well'", "Curtain"),
+         ("6 - College Apartment", "Prep spinner platform"),
+        ("6 - AFTER College Apartment", "Push spinner platform"),
+        ("7 - END 'He Is Born'", "Clear spinner platform"),
+  ("12 - AFTER Lobby", "Push spinner platform"),
+        ("13 - AFTER 'Yuletide'", "Clear spinner platform"),
+        ("16 - 'Midwinter'", "Sofa"),
+        ("16 - END 'Midwinter'", "Snow"),
+
     ],
     "Jacelynn": [
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Table"),
-        ("2 - Lobby Scene Standard + Move Into Apartment Props", "Hold wall while Kyle crashes through it"),
-        ("6 - College Guy Apartment Standard", "Quickly clear of the scene"),
-        ("9 - Song 'Christmas Hits Different'", "Diaper Boxes"),
-        ("12 - Lobby Scene Standard", "Quickly clear scene to sides")
+        ("1 - END 'Midnight Clear'", "Table"),
+        ("2 - Lobby + Moving", "Unlatch crash wall"),
+        ("2 - Lobby + Moving", "Hold crash wall"),
+        ("4 - AFTER Lobby", "Clear table"), 
+("5 - AFTER 'All Is Well'", "Recliner 2"),
+        ("6 - AFTER College Apartment", "Clear recliner 2"),
+        ("7 - AFTER 'He Is Born'", "Table"),
+("8 - AFTER Lobby", "Clear table"),
+        ("11 - END 'Wait Is Over'", "Table"),
+        ("12 - AFTER Lobby", "Clear table"),
+        ("13 - 'Yuletide'", "Lights with "),
+        ("13 - After 'Yuletide'", "Clear lights"),
+        ("Post Play", "Come for thanks"),
+        ("AFTER Post Play", "Reset props")
     ],
     "Daniel": [
-        ("1 - Song 'It Came Upon A Midnight Clear'", "Sofa"),
-        ("5 - Song 'All Is Well'", "Clothes Pile"),
-        ("6 - College Guy Apartment Standard", "Quickly clear of the scene"),
-        ("12 - Lobby Scene Standard", "Open middle slide wall"),
-        ("13 - Song 'Yuletide'", "Desk Chair"),
-        ("16 - Song 'Midwinter'", "High Chair")
+        ("1 - END 'Midnight Clear'", "Sofa"),
+        ("2 - AFTER Lobby + Moving", "Repair wall"),
+
+        ("5 - END 'All Is Well'", "Clothes pile"),
+        ("6 - AFTER College Apartment", "Clear clothes pile"),
+        ("7 - AFTER 'He Is Born'", "Plants"),
+("8 - AFTER Lobby", "Clear plants"),
+        ("9 - END 'Hits Different'", "High chair"),
+        ("10 - AFTER Young Couples", "High chair"),
+
+        ("12 - AFTER Lobby", "Lights with Adriana"),
+        ("13 - AFTER 'Yuletide'", "Clear Lights"),
+        ("13 - AFTER 'Yuletide'", "Desk chair"),
+        ("14 - AFTER George’s Apartment", "Clear desk chair"),
+
+        ("16 - END 'Midwinter'", "High Chair"),
+        ("Post Play", "Come for thanks"),
+        ("AFTER Post Play", "Reset props")
     ]
 }
+
+
+
+
+
+
 
 
 
@@ -125,29 +223,74 @@ logging.basicConfig(level=logging.DEBUG)
 
 @app.route("/add_template_tasks/<room_code>", methods=["POST"])
 def add_template_tasks_to_room(room_code):
-    initialize_room(room_code)  # Ensure room is initialized
+    # Ensure room is initialized
+    initialize_room(room_code)
 
+    # Predefined scene order with responsibilities
+    scene_order_with_responsibilities = [
+    'Pre Play',
+ "1 - 'Midnight Clear'",
+ "1 - END 'Midnight Clear'",
+ '2 - AFTER Lobby + Moving',
+ "3 - 'Behold Him'",
+ '4 - Lobby',
+ '4 - AFTER Lobby',
+ "5 - 'All Is Well'",
+ "5 - END 'All Is Well'",
+ '6 - College Apartment',
+ '6 - AFTER College Apartment',
+ "7 - 'He Is Born'",
+ "7 - AFTER 'He Is Born'",
+ '8 - Lobby',
+ '8 - AFTER Lobby',
+ "9 - AFTER 'Hits Different'",
+ "9 - END 'Hits Different'",
+ '10 - AFTER Young Couples',
+ "11 - END 'Wait Is Over'",
+ '12 - Lobby',
+ '12 - AFTER Lobby',
+ "13 - 'Yuletide'",
+ "13 - AFTER 'Yuletide'",
+ '14 - AFTER George’s Apartment',
+ "15 - 'Heard the Bells'",
+ "15 - AFTER 'Heard the Bells'",
+  'Message',
+ "16 - 'Midwinter'",
+ "16 - END 'Midwinter'",
+ '17 - Young Couples',
+ 'Post Play',
+ 'AFTER Post Play'
+]
+
+
+    # Replace or initialize the room's scene_order
+    rooms[room_code]["scene_order"] = scene_order_with_responsibilities
+
+    # Add tasks for each person based on the template
     for person, task_list in tasks_template.items():
         for task_data in task_list:
             scene, task = task_data  # Unpack the tuple containing scene and task
-            # Add scene to scene_order if it's not already there
-            if scene not in rooms[room_code]["scene_order"]:
-                rooms[room_code]["scene_order"].append(scene)
 
+            # Ensure the scene is present in the room's tasks
             if scene not in rooms[room_code]["tasks"]:
                 rooms[room_code]["tasks"][scene] = {}
 
+            # Ensure the person exists within the scene's tasks
             if person not in rooms[room_code]["tasks"][scene]:
                 rooms[room_code]["tasks"][scene][person] = []
 
             # Debugging Log
             logging.debug(f"Adding task: {task} for person: {person} in scene: {scene}")
 
+            # Add the task to the person's task list for the scene
             rooms[room_code]["tasks"][scene][person].append(task)
+
+    # Set the first scene as the selected scene if not already set
     if not rooms[room_code]["scene_selected"] and rooms[room_code]["scene_order"]:
         rooms[room_code]["scene_selected"] = rooms[room_code]["scene_order"][0]
 
-    return jsonify({"message": "Template tasks added successfully!", "rooms": rooms})
+    return jsonify({"message": "Template tasks and scene order added successfully!", "rooms": rooms})
+
 
 
 

@@ -331,8 +331,10 @@
             {% endif %}
             {% endfor %}
             {% endfor %}
-          
-            <!-- Split people names into two rows -->
+            <script>
+                console.log({{ people_names | tojson }});
+              </script>
+                          <!-- Split people names into two rows -->
             {% set half_length = (people_names | length) // 2 %}
             <div class="grid grid-cols-{{ half_length }} gap-4 mb-4 h-2/5 overflow-y-auto">
               <!-- First Row of Names and Tasks -->
