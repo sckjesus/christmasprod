@@ -4,34 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backstage Play Manager</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
 </head>
-<body class="bg-gray-900 text-gray-200 font-sans">
+<body class="bg-background-light dark:bg-background-dark text-neutral-dark dark:text-neutral font-sans transition-colors duration-100">
     <!-- Header Section -->
-    <div id="navbar"></div>
-
+    {% include 'navbar.html' %}
 
     <!-- Main Content -->
     <main class="container mx-auto p-4">
         <!-- Welcome Section -->
         <section class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-100">🎭 Backstage Play Manager</h1>
-            <p class="text-md md:text-lg text-gray-400 mt-2">
+            <h1 class="text-3xl md:text-4xl font-bold text-neutral-dark dark:text-neutral-light">🎭 Backstage Play Manager</h1>
+            <p class="text-md md:text-lg text-neutral dark:text-neutral-light mt-2">
                 Manage and view tasks for your backstage team with ease.
             </p>
         </section>
 
         <!-- Navigation Buttons -->
         <section class="mb-8">
-            <h2 class="text-xl md:text-2xl font-semibold mb-4 text-center">Welcome</h2>
+            <h2 class="text-xl md:text-2xl font-semibold mb-4 text-center text-neutral-dark dark:text-neutral-light">Welcome</h2>
             <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <form method="POST" action="/" class="inline-block w-full sm:w-auto">
-                    <button type="submit" class="w-full sm:w-auto px-5 py-2 bg-blue-500 text-white text-center rounded hover:bg-blue-600 transition duration-300 ease-in-out">
+                    <button type="submit" class="w-full sm:w-auto px-5 py-2 bg-primary text-white rounded hover:bg-primary-light dark:bg-primary dark:hover:bg-primary-dark transition duration-200">
                         Create Room
                     </button>
                 </form>
                 <div class="inline-block w-full sm:w-auto">
-                    <a href="/join_room" class="block w-full sm:w-auto px-5 py-2 bg-green-500 text-white text-center rounded hover:bg-green-600 transition duration-300 ease-in-out">
+                    <a href="/join_room" class="block w-full sm:w-auto px-5 py-2 bg-success text-white rounded hover:bg-success-light dark:hover:bg-success-dark transition duration-200">
                         Join Room
                     </a>
                 </div>
@@ -40,46 +39,46 @@
 
         <!-- Featured Rooms Section -->
         <section class="mb-8">
-            <h2 class="text-xl md:text-2xl font-semibold mb-4">Featured Rooms</h2>
+            <h2 class="text-xl md:text-2xl font-semibold mb-4 text-neutral-dark dark:text-neutral-light">Featured Rooms</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="p-4 bg-gray-800 rounded shadow">
-                    <h3 class="text-lg font-bold text-gray-100">Room 101</h3>
-                    <p class="text-gray-400">A collaborative space for team tasks.</p>
-                    <a href="#" class="text-blue-400 hover:text-blue-300">View Details</a>
+                <div class="p-4 bg-surface-light dark:bg-surface-dark rounded shadow">
+                    <h3 class="text-lg font-bold text-neutral-dark dark:text-neutral-light">Room 101</h3>
+                    <p class="text-neutral dark:text-neutral">A collaborative space for team tasks.</p>
+                    <a href="#" class="text-primary hover:text-primary-light dark:text-primary-light dark:hover:text-primary">
+                        View Details
+                    </a>
                 </div>
-                <div class="p-4 bg-gray-800 rounded shadow">
-                    <h3 class="text-lg font-bold text-gray-100">Room 202</h3>
-                    <p class="text-gray-400">Plan your projects and meet deadlines.</p>
-                    <a href="#" class="text-blue-400 hover:text-blue-300">View Details</a>
+                <div class="p-4 bg-surface-light dark:bg-surface-dark rounded shadow">
+                    <h3 class="text-lg font-bold text-neutral-dark dark:text-neutral-light">Room 202</h3>
+                    <p class="text-neutral dark:text-neutral">Plan your projects and meet deadlines.</p>
+                    <a href="#" class="text-primary hover:text-primary-light dark:text-primary-light dark:hover:text-primary">
+                        View Details
+                    </a>
                 </div>
-                <div class="p-4 bg-gray-800 rounded shadow">
-                    <h3 class="text-lg font-bold text-gray-100">Room 303</h3>
-                    <p class="text-gray-400">Organize rehearsals efficiently.</p>
-                    <a href="#" class="text-blue-400 hover:text-blue-300">View Details</a>
+                <div class="p-4 bg-surface-light dark:bg-surface-dark rounded shadow">
+                    <h3 class="text-lg font-bold text-neutral-dark dark:text-neutral-light">Room 303</h3>
+                    <p class="text-neutral dark:text-neutral">Organize rehearsals efficiently.</p>
+                    <a href="#" class="text-primary hover:text-primary-light dark:text-primary-light dark:hover:text-primary">
+                        View Details
+                    </a>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer Section -->
-    <footer class="bg-gray-800 text-gray-400 p-4">
+    <footer class="bg-surface-light dark:bg-surface-dark text-neutral dark:text-neutral-light p-4">
         <div class="container mx-auto text-center text-sm md:text-base">
             <p>&copy; 2024 Backstage Play Manager. All Rights Reserved.</p>
             <p class="mt-2">
-                <a href="#" class="text-blue-400 hover:text-blue-300">Privacy Policy</a> |
-                <a href="#" class="text-blue-400 hover:text-blue-300">Terms of Service</a>
+                <a href="#" class="text-primary hover:text-primary-light dark:text-primary-light dark:hover:text-primary">
+                    Privacy Policy
+                </a> |
+                <a href="#" class="text-primary hover:text-primary-light dark:text-primary-light dark:hover:text-primary">
+                    Terms of Service
+                </a>
             </p>
         </div>
     </footer>
-    <script>
-        // Load the navbar dynamically
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('navbar').innerHTML = html;
-            })
-            .catch(err => console.error('Error loading navbar:', err));
-    </script>
-    
 </body>
 </html>

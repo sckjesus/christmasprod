@@ -634,6 +634,15 @@ def unmark_task_completed(room_code):
     except Exception as e:
         logging.error(f"Error in unmark_task_completed: {e}")
         return jsonify({"success": False, "message": "An error occurred while unmarking the task as completed."})
+    
+@app.route("/contact", methods=["GET"])
+def contact():
+    return render_template("contact.html")
+
+@app.route("/about", methods=["GET"])
+def about():
+    return render_template("about.html")
+
 
     
 if __name__ == "__main__":

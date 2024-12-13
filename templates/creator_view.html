@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creator View</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
     <script>
-        // // Load the navbar dynamically
+        // Load the navbar dynamically
         // fetch('navbar.html')
         //     .then(response => response.text())
         //     .then(html => {
@@ -15,6 +15,29 @@
         //     })
         //     .catch(err => console.error('Error loading navbar:', err));
 
+        // Dark mode toggle functionality
+        function toggleDarkMode() {
+            const htmlElement = document.documentElement;
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Set the initial theme based on localStorage
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Rest of your existing scripts remain unchanged
         async function addTask(rooms) { 
             const roomCode = document.getElementById("room-code").innerText;
             const sceneName = document.getElementById("scene-name").value.trim();
@@ -41,7 +64,6 @@
                 const data = await response.json();
                 if (response.ok) {
                     alert(data.message);
-                    // You can then use rooms here if needed
                     renderUpdatedRooms(data.rooms, roomCode);
                 } else {
                     alert('Failed to add task. Please try again.');
@@ -92,12 +114,11 @@
                 document.getElementById("template-tasks-status").classList.remove("hidden");
             }
         }
+
         function renderUpdatedRooms(rooms, roomCode) {
-            // Log the rooms object for debugging purposes
             console.log(rooms);
             console.log(rooms[roomCode]);
 
-            // Check if the room exists in the rooms object
             if (!rooms || !rooms[roomCode]) {
                 console.error("Room code not found in rooms dictionary.");
                 return;
@@ -105,13 +126,11 @@
 
             const roomData = rooms[roomCode];
 
-            // Check if the room data has the necessary properties
             if (!roomData.scene_order) {
                 console.error("Scene order is not defined for the room.");
                 return;
             }
 
-            // Get the containers from the DOM
             const currentTasksContainer = document.getElementById("current-tasks");
             const sceneListContainer = document.getElementById("scene-list");
 
@@ -120,13 +139,10 @@
                 return;
             }
 
-            // Clear current content
             currentTasksContainer.innerHTML = '';
             sceneListContainer.innerHTML = '';
 
-            // Iterate over scene_order to update the scene list and task containers
             for (const scene of roomData.scene_order) {
-                // Add to scene-list for reordering
                 let sceneListItem = document.createElement("div");
                 sceneListItem.classList.add("draggable", "bg-white", "p-4", "rounded", "shadow-sm", "cursor-move");
                 sceneListItem.dataset.scene = scene;
@@ -137,7 +153,6 @@
                 sceneListItem.appendChild(sceneListHeader);
                 sceneListContainer.appendChild(sceneListItem);
 
-                // Add to current tasks section if tasks exist for the scene
                 if (roomData.tasks && roomData.tasks[scene]) {
                     let sceneDiv = document.createElement("div");
                     sceneDiv.classList.add("bg-white", "p-4", "rounded", "shadow-sm");
@@ -183,11 +198,8 @@
                 }
             }
 
-            // Re-initialize the drag and drop for scenes after updating the list
             initializeDragAndDrop();
         }
-
-
 
         async function updateSceneOrder() {
             const roomCode = document.getElementById("room-code").innerText;
@@ -250,28 +262,21 @@
                 item.addEventListener("dragend", handleDragEnd);
             });
         }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            renderUpdatedRooms({{ rooms | tojson }}, "{{ room_code }}");
-            initializeDragAndDrop();
-        });
     </script>
 </head>
 
-<body class="bg-gray-100 font-sans">
+<body class="bg-background-light dark:bg-background-dark text-neutral-dark dark:text-neutral-light font-sans transition-colors duration-100">
+    {% include 'navbar.html' %}
     <div class="container mx-auto p-4">
-        {% include 'navbar.html' %}
-
         <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-800">👩‍🎨 Creator View</h1>
-            <p class="text-lg text-gray-600">Manage tasks for your room.</p>
+            <h1 class="text-4xl font-bold text-neutral-dark dark:text-neutral-light">👩‍🎨 Creator View</h1>
+            <p class="text-lg text-neutral mt-2">Manage tasks for your room.</p>
         </header>
 
         <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Room Code: <strong id="room-code">{{ room_code }}</strong></h2>
+            <h2 class="text-2xl font-semibold mb-4 text-neutral-dark dark:text-neutral-light">Room Code: <strong id="room-code">{{ room_code }}</strong></h2>
 
-            <button onclick="addTemplateTasks()"
-                class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mb-6">
+            <button onclick="addTemplateTasks()" class="px-5 py-2 bg-success text-white rounded hover:bg-success-light dark:bg-success-dark transition duration-200 mb-6">
                 Add Template Tasks
             </button>
 
