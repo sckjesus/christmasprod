@@ -16,8 +16,9 @@ module.exports = {
         'secondary-dark': colors.amber['700'], // Tailwind's amber-600 for dark mode
         neutral: {
           light: colors.gray['200'], // Tailwind's gray-200
-          DEFAULT: colors.gray['500'], // Tailwind's gray-500
-          dark: colors.gray['700'], // Tailwind's gray-700
+          DEFAULT: colors.gray['400'], // Tailwind's gray-500
+          dark: colors.gray['500'], // Tailwind's gray-700
+          darker: colors.gray['800'], // Tailwind's gray-700
         },
         success: {
           DEFAULT: colors.emerald['500'], // Tailwind's green-500
@@ -32,6 +33,7 @@ module.exports = {
         },
         surface: {
           light: colors.white, // Tailwind's white
+          DEFAULT: colors.gray['700'], // Tailwind's gray-800
           dark: colors.gray['800'], // Tailwind's gray-800
         },
       },

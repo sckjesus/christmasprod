@@ -7,37 +7,6 @@
     <title>Creator View</title>
     <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
     <script>
-        // Load the navbar dynamically
-        // fetch('navbar.html')
-        //     .then(response => response.text())
-        //     .then(html => {
-        //         document.getElementById('navbar').innerHTML = html;
-        //     })
-        //     .catch(err => console.error('Error loading navbar:', err));
-
-        // Dark mode toggle functionality
-        function toggleDarkMode() {
-            const htmlElement = document.documentElement;
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        // Set the initial theme based on localStorage
-        document.addEventListener("DOMContentLoaded", () => {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        });
-
-        // Rest of your existing scripts remain unchanged
         async function addTask(rooms) { 
             const roomCode = document.getElementById("room-code").innerText;
             const sceneName = document.getElementById("scene-name").value.trim();
@@ -265,39 +234,39 @@
     </script>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark text-neutral-dark dark:text-neutral-light font-sans transition-colors duration-100">
+<body class="bg-background-light dark:bg-background-dark text-neutral-darker dark:text-neutral-light font-sans transition-colors duration-100">
     {% include 'navbar.html' %}
     <div class="container mx-auto p-4">
         <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-neutral-dark dark:text-neutral-light">👩‍🎨 Creator View</h1>
-            <p class="text-lg text-neutral mt-2">Manage tasks for your room.</p>
+            <h1 class="text-4xl font-bold text-neutral-darker dark:text-neutral-light">👩‍🎨 Creator View</h1>
+            <p class="text-lg text-neutral-dark dark:text-neutral mt-2">Manage tasks for your room.</p>
         </header>
 
         <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4 text-neutral-dark dark:text-neutral-light">Room Code: <strong id="room-code">{{ room_code }}</strong></h2>
+            <h2 class="text-2xl font-semibold mb-4 text-neutral-darker dark:text-neutral-light">Room Code: <strong id="room-code">{{ room_code }}</strong></h2>
 
-            <button onclick="addTemplateTasks()" class="px-5 py-2 bg-success text-white rounded hover:bg-success-light dark:bg-success-dark transition duration-200 mb-6">
+            <button onclick="addTemplateTasks()" class="px-5 py-2 bg-success text-white rounded hover:bg-success-dark dark:hover:bg-success dark:bg-success-dark transition duration-200 mb-6">
                 Add Template Tasks
             </button>
 
-            <div class="bg-white p-6 rounded shadow-md mb-6">
-                <h3 class="text-xl font-medium mb-4">Add a Task</h3>
+            <div class="dark:bg-surface-dark bg-surface-light p-6 rounded shadow-md mb-6">
+                <h3 class="text-xl font-semibold mb-4">Add a Task</h3>
                 <form onsubmit="event.preventDefault(); addTask();">
                     <div class="mb-4">
-                        <label for="scene-name" class="block text-sm font-medium text-gray-700">Scene Name</label>
+                        <label for="scene-name" class="block text-sm font-semibold text-neutral-darker dark:text-neutral">Scene Name</label>
                         <input type="text" id="scene-name"
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                            class="mt-1 block w-full bg-surface rounded-md shadow-sm p-2 text-md"
                             placeholder="e.g., 1 - Strike">
                     </div>
                     <div class="mb-4">
-                        <label for="person" class="block text-sm font-medium text-gray-700">Person</label>
-                        <input type="text" id="person" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                        <label for="person" class="block text-sm font-semibold text-neutral-darker dark:text-neutral">Person</label>
+                        <input type="text" id="person" class="mt-1 block w-full rounded-md shadow-sm bg-surface p-2 text-md"
                             placeholder="e.g., Sam">
                     </div>
                     <div class="mb-4">
-                        <label for="task-detail" class="block text-sm font-medium text-gray-700">Task Detail</label>
+                        <label for="task-detail" class="block text-sm font-semibold text-neutral-darker dark:text-neutral">Task Detail</label>
                         <input type="text" id="task-detail"
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                            class="mt-1 block w-full bg-surface rounded-md shadow-sm p-2 text-md"
                             placeholder="e.g., Set up table">
                     </div>
                     <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Add
@@ -306,8 +275,9 @@
             </div>
 {{ rooms[room_code] }}
             <section class="mb-8">
-                <h3 class="text-xl font-medium mb-4">Reorder Scenes</h3>
-                <div id="scene-list" class="space-y-2 bg-gray-100 p-4 rounded shadow-md">
+                <div id="scene-list" class="space-y-2 bg-surface p-4 rounded shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 text-neutral-darker dark:text-neutral-light">Reorder Scenes</h3>
+
                     {% for scene in rooms[room_code]["scene_order"] %}
                     <div class="draggable bg-white p-4 rounded shadow-sm cursor-move" data-scene="{{ scene }}">
                         <h4 class="text-lg font-semibold">{{ scene }}</h4>
@@ -336,7 +306,7 @@
                 </button>
             </section>
 
-            <h3 class="text-xl font-medium mb-4">Current Tasks</h3>
+            <h3 class="text-xl font-semibold mb-4 text-neutral-darker dark:text-neutral-light">Current Tasks</h3>
             <div class="space-y-4">
                 <div id="current-tasks" class="space-y-2 bg-gray-100 p-4 rounded shadow-md">
                     {% for scene in rooms[room_code]["scene_order"] %}
