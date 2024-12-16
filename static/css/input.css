@@ -13,7 +13,7 @@
     @apply block px-5 py-2 text-white rounded bg-primary-light dark:bg-primary hover:bg-primary dark:hover:bg-primary-light transition duration-200;
   }
   .card {
-    @apply dark:bg-surface-dark bg-slate-200 p-6 rounded shadow-md mb-7;
+    @apply dark:bg-surface-dark bg-surface-light p-6 rounded shadow-md mb-7;
   }
   .title {
     @apply text-4xl font-bold text-neutral-darker dark:text-neutral-light;

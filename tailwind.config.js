@@ -44,4 +44,9 @@ module.exports = {
   },
   darkMode: 'class', // Enable class-based dark mode
   plugins: [],
+  safelist: [
+    {
+      pattern: /grid-cols-(\d+)/,
+    },],
+  
 };
