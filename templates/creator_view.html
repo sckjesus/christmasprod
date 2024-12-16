@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creator View</title>
-    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
-    <script>
-        async function addTask(rooms) { 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Creator View</title>
+        <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+        <script>
+        async function addTask(rooms) {
             const roomCode = document.getElementById("room-code").innerText;
             const sceneName = document.getElementById("scene-name").value.trim();
             const person = document.getElementById("person").value.trim();
@@ -232,96 +232,86 @@
             });
         }
     </script>
-</head>
+    </head>
 
-<body class="bg-background-light dark:bg-background-dark text-neutral-darker dark:text-neutral-light font-sans transition-colors duration-100">
-    {% include 'navbar.html' %}
-    <div class="container mx-auto p-4">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-neutral-darker dark:text-neutral-light">👩‍🎨 Creator View</h1>
-            <p class="text-lg text-neutral-dark dark:text-neutral mt-2">Manage tasks for your room.</p>
-        </header>
+    <body
+        class="bg-background-light dark:bg-background-dark text-neutral-darker dark:text-neutral-light font-sans transition-colors duration-100">
+        {% include 'navbar.html' %}
+        <div class="container mx-auto p-4">
+            <header class="text-center mb-8">
+                <h1 class="title">👩‍🎨 Creator View</h1>
+                <p class="subtitle">Manage tasks for your room.</p>
+            </header>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4 text-neutral-darker dark:text-neutral-light">Room Code: <strong id="room-code">{{ room_code }}</strong></h2>
-
-            <button onclick="addTemplateTasks()" class="px-5 py-2 bg-success text-white rounded hover:bg-success-dark dark:hover:bg-success dark:bg-success-dark transition duration-200 mb-6">
-                Add Template Tasks
-            </button>
-
-            <div class="dark:bg-surface-dark bg-surface-light p-6 rounded shadow-md mb-6">
-                <h3 class="text-xl font-semibold mb-4">Add a Task</h3>
-                <form onsubmit="event.preventDefault(); addTask();">
-                    <div class="mb-4">
-                        <label for="scene-name" class="block text-sm font-semibold text-neutral-darker dark:text-neutral">Scene Name</label>
-                        <input type="text" id="scene-name"
-                            class="mt-1 block w-full bg-surface rounded-md shadow-sm p-2 text-md"
-                            placeholder="e.g., 1 - Strike">
-                    </div>
-                    <div class="mb-4">
-                        <label for="person" class="block text-sm font-semibold text-neutral-darker dark:text-neutral">Person</label>
-                        <input type="text" id="person" class="mt-1 block w-full rounded-md shadow-sm bg-surface p-2 text-md"
-                            placeholder="e.g., Sam">
-                    </div>
-                    <div class="mb-4">
-                        <label for="task-detail" class="block text-sm font-semibold text-neutral-darker dark:text-neutral">Task Detail</label>
-                        <input type="text" id="task-detail"
-                            class="mt-1 block w-full bg-surface rounded-md shadow-sm p-2 text-md"
-                            placeholder="e.g., Set up table">
-                    </div>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Add
-                        Task</button>
-                </form>
-            </div>
-{{ rooms[room_code] }}
             <section class="mb-8">
-                <div id="scene-list" class="space-y-2 bg-surface p-4 rounded shadow-md">
-                    <h3 class="text-xl font-semibold mb-4 text-neutral-darker dark:text-neutral-light">Reorder Scenes</h3>
+                <h2 class="title-two">Room Code: <strong id="room-code">{{ room_code }}</strong></h2>
+
+                <button onclick="addTemplateTasks()" class="button-green mb-6">
+                    Add Template Tasks
+                </button>
+
+                <div class="card">
+                    <h3 class="cardtitle">Add a Task</h3>
+                    <form onsubmit="event.preventDefault(); addTask();">
+                        <div>
+                            <label for="scene-name"
+                                class="textinput-name">Scene Name</label>
+                            <input type="text" id="scene-name"
+                                class="textinput"
+                                placeholder="e.g., 1 - Strike">
+                        </div>
+                        <div>
+                            <label for="person"
+                                class="textinput-name text-sm">Person</label>
+                            <input type="text" id="person"
+                                class="textinput"
+                                placeholder="e.g., Sam">
+                        </div>
+                        <div>
+                            <label for="task-detail"
+                                class="textinput-name">Task
+                                Detail</label>
+                            <input type="text" id="task-detail"
+                                class="w-full textinput"
+                                placeholder="e.g., Set up table">
+                        </div>
+                        <button type="submit" class="button">Add
+                            Task</button>
+                    </form>
+                </div>
+                {{ rooms[room_code] }}
+                <section class="space-y-2 card">
+                    <h3 class="cardtitle">Reorder Scenes
+                    </h3>
 
                     {% for scene in rooms[room_code]["scene_order"] %}
-                    <div class="draggable bg-white p-4 rounded shadow-sm cursor-move" data-scene="{{ scene }}">
-                        <h4 class="text-lg font-semibold">{{ scene }}</h4>
-                        {% if scene in rooms[room_code]["tasks"].items() %}
-                        {% for person, task_list in rooms[room_code]["tasks"][scene].items() %}
-                        <div class="mt-2">
-                            <h5 class="font-medium">{{ person }}</h5>
-                            <ul>
-                                {% for task in task_list %}
-                                <li class="flex justify-between items-center">
-                                    <span>{{ task }}</span>
-                                    <button onclick="deleteTask('{{ scene }}', '{{ person }}', '{{ task }}')"
-                                        class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        {% endfor %}
-                        {% endif %}
+                    <div id="scene-list"
+                        class="draggable nestedcard shadow-md cursor-move"
+                        data-scene="{{ scene }}">
+                        <h4 class="textinput-name mb-0">{{ scene }}</h4>
                     </div>
                     {% endfor %}
-                </div>
-                <button onclick="updateSceneOrder()"
-                    class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Save Scene Order
-                </button>
-            </section>
+                    <button onclick="updateSceneOrder()" class="mt-4 button">
+                        Save Scene Order
+                    </button>
 
-            <h3 class="text-xl font-semibold mb-4 text-neutral-darker dark:text-neutral-light">Current Tasks</h3>
-            <div class="space-y-4">
-                <div id="current-tasks" class="space-y-2 bg-gray-100 p-4 rounded shadow-md">
+                </section>
+
+                <div id="current-tasks" class="card">
+                    <h3 class="cardtitle">Current Tasks</h3>
                     {% for scene in rooms[room_code]["scene_order"] %}
-                    <div class="bg-white p-4 rounded shadow-sm">
-                        <h4 class="text-lg font-semibold">{{ scene }}</h4>
+                    <div class="nestedcard">
+                        <h4 class="cardtitle text-lg font-bold">{{ scene }}</h4>
                         {% if scene in rooms[room_code]["tasks"] %}
                         {% for person, task_list in rooms[room_code]["tasks"][scene].items() %}
                         <div class="mt-2">
-                            <h5 class="font-medium">{{ person }}</h5>
+                            <h5 class="font-semibold">{{ person }}</h5>
                             <ul>
                                 {% for task in task_list %}
                                 <li class="flex justify-between items-center">
-                                    <span>{{ task }}</span>
+                                    <span class="text-sm">{{ task }}</span>
                                     <button onclick="deleteTask('{{ scene }}', '{{ person }}', '{{ task }}')"
-                                        class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
+                                        class="button-red p-2 text-xs">Delete</button>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -331,9 +321,8 @@
                     </div>
                     {% endfor %}
                 </div>
-            </div>
-        </section>
-    </div>
-</body>
+            </section>
+        </div>
+    </body>
 
 </html>

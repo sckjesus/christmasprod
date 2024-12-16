@@ -26,8 +26,11 @@ module.exports = {
           'dark': colors.emerald['600'], // Tailwind's green-500
         },
         warning: colors.yellow['500'], // Tailwind's yellow-500
-        error: colors.red['500'], // Tailwind's red-500
-        background: {
+        error: {
+          DEFAULT: colors.red['500'], // Tailwind's green-500
+          'light': colors.red['400'], // Tailwind's green-500
+          'dark': colors.red['600'], // Tailwind's green-500
+        },        background: {
           light: colors.gray['100'], // Tailwind's gray-50 for light background
           dark: colors.gray['900'], // Tailwind's gray-900 for dark background
         },
